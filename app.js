@@ -4,8 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//Database mongoose connection
+const mongoose = require('mongoose');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+//Connecting to server through mongoose
+const url = 'mongodb://localhost:27017/ats';
+const connect = mongoose.connect(url);
+
+connect.then((db) => {
+    console.log("Connected correctly to Alumni tracking server");
+}, (err) => { console.log(err); });
 
 var app = express();
 
