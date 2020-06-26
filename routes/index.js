@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/signup',(req,res,next) => {
   User.findOne({rollnumber: req.body.rollnumber})
   .then((user) => {
+    console.log(req.body);
     if( user!=null ) {
       var err=new Error('User ' +req.body.rollnumber+' already exists');
       err.status = 403;
@@ -25,7 +26,8 @@ router.post('/signup',(req,res,next) => {
     res.setHeader('Content-Type','application/json');
     res.json({status:'Registration Successful', user:user});
 
-  },(err)=> next(err))
+  },(err)=> {console.log('Internal error,cant do anythin');
+    next(err)})
   .catch((err) => next(err));
 });
 
@@ -57,10 +59,12 @@ router.post('/login',(req,res,next) => {
           return next(err); 
         }
         else if(user.rollnumber===username && user.password === password){
+          console.log(username,password);
           req.session.user = 'authenticated';
           res.statusCode= 200;
           res.setHeader('Content-Type', 'text/plain');
           res.end('You are now logged in');
+          
         }
     })
     .catch((err)=> next(err));
