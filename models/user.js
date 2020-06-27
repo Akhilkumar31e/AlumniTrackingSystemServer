@@ -2,6 +2,29 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
+const experienceSchema = new Schema({
+    company: {
+        type: String,
+        required:true
+    },
+    start: {
+        type: String,
+        required: true
+    },
+    end:{
+        type:String,
+        default: 'present'
+    },
+    role:{
+        type:String,
+        required: true
+    },
+    desc:{
+        type:String,
+        default:null
+    }
+});
+
 const userSchema = new Schema({
     name: {
         type:String,
@@ -31,7 +54,8 @@ const userSchema = new Schema({
     password:{
         type:String,
         required:true
-    }
+    },
+    experience: [ experienceSchema ]
 },{
     timestamps:true
 });
