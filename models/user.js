@@ -21,7 +21,7 @@ const experienceSchema = new Schema({
     },
     desc:{
         type:String,
-        default:null
+        default:''
     }
 });
 
