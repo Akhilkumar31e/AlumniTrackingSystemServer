@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
 var User = require('../models/user');
+const Post = require('../models/posts');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -88,6 +89,30 @@ router.get('/logout',(req,res) => {
     return next(err);
   }
 });
+
+router.get('/getPosts', (req, res) => {
+  Post.find()
+  .then((posts) => {
+    console.log(posts);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(posts);
+  })
+  .catch(err => console.log(err));
+})
+
+
+router.post('/newPost', (req, res) => {
+  console.log(req.body);
+  Post.create(req.body)
+  .then((posts) => {
+    
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(posts);
+  })
+  .catch(err => console.log(err));
+})
 
 
 
