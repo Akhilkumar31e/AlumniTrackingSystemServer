@@ -48,7 +48,7 @@ router.post('/:userId/experience',function(req,res,next){
         .then((user) => {
           res.statusCode= 200;
           res.setHeader('Content-Type','pplication/json');
-          res.json(user);
+          res.json(user.experience);
         },(err) => next(err));
       }
       else{
